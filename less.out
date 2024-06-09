@@ -1,0 +1,85 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 0 -> right z >
+s 1 -> right f >
+
+right 0 -> right 0 >
+right 1 -> right 1 >
+right < -> right < >
+right _ -> is_r _ <
+right f -> is_r f <
+right z -> is_r z <
+
+left 0 -> left 0 <
+left 1 -> left 1 <
+left < -> left < <
+left _ -> is_l _ >
+left f -> is_l f >
+left z -> is_l z >
+
+is_r 1 -> left f <
+is_r 0 -> left z <
+is_r < -> rj < ^
+
+is_l 1 -> right f >
+is_l 0 -> right z >
+is_l < -> check_right < >
+
+check_right z -> fix z ^
+check_right f -> fix f ^
+check_right 0 -> ac 0 ^
+check_right 1 -> ac 1 ^
+
+fix z -> fix 0 >
+fix f -> fix 1 >
+fix _ -> fix2 _ <
+
+fix2 z -> fix2 0 <
+fix2 f -> fix2 1 <
+fix2 0 -> fix2 0 <
+fix2 1 -> fix2 1 <
+fix2 < -> fix2 < <
+fix2 _ -> st _ >
+
+
+st 0 -> check_0 _ >
+st 1 -> check_1 _ >
+
+choose 1 -> check_1 _ >
+choose 0 -> check_0 _ >
+choose % -> rj % ^
+choose < -> rj < ^
+
+
+check_1 1 -> check_1 1 >
+check_1 0 -> check_1 0 >
+check_1 < -> check_1_ < >
+
+check_1_ % -> check_1_ % >
+check_1_ 1 -> is_less_1 1 ^
+check_1_ 0 -> is_less_1 0 ^
+
+is_less_1 0 -> rj _ ^
+is_less_1 1 -> go_l % <
+
+check_0 < -> check_0_ < >
+check_0 0 -> check_0 0 >
+check_0 1 -> check_0 1 >
+
+check_0_ % -> check_0_ % >
+check_0_ 1 -> is_less_0 1 ^
+check_0_ 0 -> is_less_0 0 ^
+
+is_less_0 0 -> go_l % <
+is_less_0 1 -> ac _ ^
+
+go_l 1 -> go_l 1 <
+go_l 0 -> go_l 0 <
+go_l < -> go_l < <
+go_l % -> go_l % <
+go_l _ -> choose _ >
+
+

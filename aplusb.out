@@ -1,0 +1,53 @@
+start: st
+accept: ac
+reject: rj
+blank: _
+
+st 0 -> st 0 >
+st 1 -> st 1 >
+st + -> st + >
+st _ -> zerk _ <
+
+zerk 0 -> sum_for_0 _ <
+zerk 1 -> sum_for_1 _ <
+zerk + -> clear _ <
+
+
+sum_for_0 1 -> sum_for_0 1 <
+sum_for_0 0 -> sum_for_0 0 <
+sum_for_0 + -> add_0 + <
+
+sum_for_1 1 -> sum_for_1 1 <
+sum_for_1 0 -> sum_for_1 0 <
+sum_for_1 + -> add_1 + <
+
+
+add_0 f -> add_0 f <
+add_0 z -> add_0 z <
+add_0 0 -> go_take z >
+add_0 1 -> go_take f >
+add_0 _ -> go_take z >
+
+add_1 f -> add_1 f <
+add_1 z -> add_1 z <
+add_1 0 -> go_take f >
+add_1 _ -> go_take f >
+add_1 1 -> add_1_help z <
+
+add_1_help 0 -> go_take 1 >
+add_1_help 1 -> add_1_help 0 <
+add_1_help _ -> go_take 1 >
+
+go_take f -> go_take f >
+go_take z -> go_take z >
+go_take + -> go_take + >
+
+go_take 0 -> go_take 0 >
+go_take 1 -> go_take 1 >
+go_take _ -> zerk _ <
+
+clear f -> clear 1 <
+clear z -> clear 0 <
+clear 1 -> clear 1 <
+clear 0 -> clear 0 <
+clear _ -> ac _ >

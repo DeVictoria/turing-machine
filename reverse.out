@@ -1,0 +1,43 @@
+start: st
+accept: ac
+reject: rj
+blank: _
+
+st _ -> ac _ ^
+st 0 -> st3 0 <
+st 1 -> st3 1 <
+
+st3 _ -> st3 / >
+st3 0 -> skip_to_l 0 >
+st3 1 -> skip_to_l 1 >
+
+skip_to_l _ -> s * <
+skip_to_l 0 -> skip_to_l 0 >
+skip_to_l 1 -> skip_to_l 1 >
+
+
+skip_to_r 0 -> skip_to_r 0 <
+skip_to_r 1 -> skip_to_r 1 <
+skip_to_r * -> s * <
+
+
+
+s 0 -> copy_z % >
+s 1 -> copy_f % >
+s % -> s % <
+s / -> s2 _ >
+
+s2 % -> s2 _ >
+s2 * -> ac _ >
+
+copy_z 1 -> copy_z 1 >
+copy_z 0 -> copy_z 0 >
+copy_z % -> copy_z % >
+copy_z * -> copy_z * >
+copy_z _ -> skip_to_r 0 <
+
+copy_f 1 -> copy_f 1 >
+copy_f 0 -> copy_f 0 >
+copy_f % -> copy_f % >
+copy_f * -> copy_f * >
+copy_f _ -> skip_to_r 1 <

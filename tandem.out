@@ -1,0 +1,65 @@
+start: st
+accept: ac
+reject: rj
+blank: _
+
+st 0 -> to_left z >
+st 1 -> to_left f >
+st _ -> ac _ ^
+
+to_left 0 -> to_left 0 >
+to_left 1 -> to_left 1 >
+to_left _ -> st_r _ <
+to_left z -> st_r z <
+to_left f -> st_r f <
+
+to_right 0 -> to_right 0 <
+to_right 1 -> to_right 1 <
+to_right _ -> st_l _ >
+to_right z -> st_l z >
+to_right f -> st_l f >
+
+st_l 0 -> to_left z >
+st_l 1 -> to_left f >
+st_l z -> check_z _ <
+st_l f -> check_f _ <
+
+st_r 0 -> to_right z <
+st_r 1 -> to_right f <
+st_r z -> rj z ^
+st_r f -> rj f ^
+
+check_z z -> check_z z <
+check_z f -> check_z f <
+check_z _ -> is_z _ >
+
+is_z z -> go_r _ >
+is_z f -> rj f ^
+
+check_f f -> check_f f <
+check_f z -> check_f z <
+check_f _ -> is_f _ >
+
+is_f f -> go_r _ >
+is_f z -> rj z ^
+
+
+go_r _ -> ac _ ^
+go_r z -> go_r2 z >
+go_r f -> go_r2 f >
+
+go_r2 _ -> skip_w _ >
+go_r2 z -> go_r2 z >
+go_r2 f -> go_r2 f >
+
+skip_w _ -> skip_w _ >
+skip_w z -> skip_z _ <
+skip_w f -> skip_f _ <
+
+skip_z _ -> skip_z _ <
+skip_z f -> check_z f ^
+skip_z z -> check_z z ^
+
+skip_f _ -> skip_f _ <
+skip_f f -> check_f f ^
+skip_f z -> check_f z ^

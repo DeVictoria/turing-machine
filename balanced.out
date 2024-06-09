@@ -1,0 +1,18 @@
+start: st
+accept: ac
+reject: rj
+blank: _
+
+st ( -> find_close 0 >
+st ) -> rj _ ^
+st _ -> ac _ ^
+st 1 -> st 1 >
+
+find_close ( -> find_close ( >
+find_close 1 -> find_close 1 >
+find_close ) -> go_left 1 <
+find_close _ -> rj _ ^
+
+go_left ( -> go_left ( <
+go_left 1 -> go_left 1 <
+go_left 0 -> st 0 >

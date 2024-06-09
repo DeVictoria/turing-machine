@@ -1,0 +1,47 @@
+start: st
+accept: ac
+reject: rj
+blank: _
+
+st 0 -> bridge 0 <
+st 1 -> bridge 1 <
+st 2 -> bridge 2 <
+
+bridge _ -> start # <
+start _ -> right 0 >
+
+right 0 -> right 0 >
+right 1 -> right 1 >
+right 2 -> right 2 >
+right # -> right # >
+right _ -> increment _ <
+
+increment 0 -> try_increment 2 <
+increment 1 -> do_increment 0 <
+increment 2 -> do_increment 1 <
+
+try_increment 0 -> try_increment 2 <
+try_increment 1 -> do_increment 0 <
+try_increment 2 -> do_increment 1 <
+try_increment # -> finish _ >
+
+finish 2 -> finish _ >
+finish _ -> go_back _ <
+
+go_back _ -> go_back _ <
+go_back 0 -> go_back_ 0 <
+go_back 1 -> go_back_ 1 <
+
+go_back_ _ -> ac _ >
+go_back_ 0 -> go_back_ 0 <
+go_back_ 1 -> go_back_ 1 <
+
+do_increment 0 -> do_increment 0 <
+do_increment 1 -> do_increment 1 <
+do_increment 2 -> do_increment 2 <
+do_increment # -> add # <
+
+add 0 -> right 1 >
+add 1 -> add 0 <
+add _ -> right 1 >
+

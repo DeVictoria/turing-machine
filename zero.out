@@ -1,0 +1,34 @@
+start: st
+accept: ac
+reject: rj
+blank: _
+
+st 0 -> st 0 >
+st 1 -> st 1 >
+st _ -> zerk _ <
+
+zerk 0 -> skip_for_0 z >
+zerk 1 -> skip_for_1 f >
+zerk _ -> ac _ >
+
+
+skip_for_0 1 -> skip_for_0 1 >
+skip_for_0 0 -> skip_for_0 0 >
+skip_for_0 _ -> skip_to_left 0 <
+skip_for_0 z -> skip_for_0 z >
+skip_for_0 f -> skip_for_0 f >
+
+skip_for_1 1 -> skip_for_1 1 >
+skip_for_1 0 -> skip_for_1 0 >
+skip_for_1 z -> skip_for_1 z >
+skip_for_1 f -> skip_for_1 f >
+skip_for_1 _ -> skip_to_left 1 <
+
+skip_to_left 0 -> skip_to_left 0 <
+skip_to_left 1 -> skip_to_left 1 <
+skip_to_left z -> skip_to_left_2 0 <
+skip_to_left f -> skip_to_left_2 1 <
+
+skip_to_left_2 0 -> skip_for_0 z >
+skip_to_left_2 1 -> skip_for_1 f >
+skip_to_left_2 _ -> ac _ >

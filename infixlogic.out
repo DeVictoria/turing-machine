@@ -1,0 +1,31 @@
+2
+
+S 0 _ -> S _ > 0 >
+S 1 _ -> S _ > 1 >
+S ( _ -> S _ > ( >
+S o _ -> S _ > _ ^
+S a _ -> and _ > _ <
+S ) _ -> eval _ ^ _ <
+S _ _ -> eval _ ^ _ <
+
+and 0 0 -> S 0 ^ _ ^
+and 0 1 -> S 0 ^ _ ^
+and 1 0 -> S 0 ^ _ ^
+and 1 1 -> S 1 ^ _ ^
+and ( 0 -> S ( ^ z >
+and ( 1 -> S ( ^ f >
+
+eval _ 0 -> eval _ ^ _ <
+eval _ 1 -> eval 1 ^ _ <
+eval _ z -> eval _ ^ _ <
+eval _ f -> eval _ ^ _ <
+eval _ ( -> S 0 ^ _ ^
+eval _ _ -> AC 0 ^ _ ^
+
+eval 1 0 -> eval 1 ^ _ <
+eval 1 1 -> eval 1 ^ _ <
+eval 1 z -> eval _ ^ _ <
+eval 1 f -> eval 1 ^ _ <
+
+eval 1 _ -> AC 1 ^ _ ^
+eval 1 ( -> S 1 ^ _ ^
